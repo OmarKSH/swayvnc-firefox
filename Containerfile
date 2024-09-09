@@ -10,6 +10,10 @@ ENV ARCH="x86_64" \
 
 USER root
 
+# Add fonts
+RUN apk add --no-cache msttcorefonts-installer fontconfig \
+&& update-ms-fonts
+
 # Add application user and application
 # Cleanup: Remove files and users
 RUN addgroup -S $USER && adduser -S $USER -G $USER \
