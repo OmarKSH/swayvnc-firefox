@@ -4,7 +4,7 @@ set -euo pipefail
 
 export CONTAINER=swayvnc-firefox
 readonly CONTAINER
-export LISTEN_ADDRESS="[::1]"
+export LISTEN_ADDRESS="127.0.0.1" #"[::1]"
 readonly LISTEN_ADDRESS
 export VERBOSE=1
 readonly VERBOSE
