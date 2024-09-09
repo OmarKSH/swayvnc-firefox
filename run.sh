@@ -8,8 +8,6 @@ export LISTEN_ADDRESS="127.0.0.1" #"[::1]"
 readonly LISTEN_ADDRESS
 export VERBOSE=1
 readonly VERBOSE
-export DEFAULT_URL="https://uhr.ptb.de/"
-readonly DEFAULT_URL
 SCRIPT_NAME=$(basename $0)
 readonly SCRIPT_NAME
 
@@ -42,15 +40,7 @@ else
 fi
 
 ${executor} run --name ${CONTAINER} \
-                -e XDG_RUNTIME_DIR=/tmp \
-                -e WLR_BACKENDS=headless \
-                -e WLR_LIBINPUT_NO_DEVICES=1 \
-                -e SWAYSOCK=/tmp/sway-ipc.sock \
-                -e MOZ_ENABLE_WAYLAND=1 \
-                -e URL="${DEFAULT_URL}" \
-                -e BROWSER_FULLSCREEN=1 \
                 -p${LISTEN_ADDRESS}:5910:5910 \
-                -p${LISTEN_ADDRESS}:7000:7000 \
                 -p${LISTEN_ADDRESS}:7023:7023 \
                 -v Downloads:/home/firefox-user/Downloads \
                 --privileged \
