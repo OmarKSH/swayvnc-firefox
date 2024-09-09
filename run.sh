@@ -41,7 +41,8 @@ else
     log "Using ${executor} to run ${CONTAINER}"
 fi
 
-${executor} run -e XDG_RUNTIME_DIR=/tmp \
+${executor} run --name ${CONTAINER} \
+                -e XDG_RUNTIME_DIR=/tmp \
                 -e WLR_BACKENDS=headless \
                 -e WLR_LIBINPUT_NO_DEVICES=1 \
                 -e SWAYSOCK=/tmp/sway-ipc.sock \
