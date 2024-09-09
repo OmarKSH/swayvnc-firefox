@@ -52,6 +52,7 @@ ${executor} run --name ${CONTAINER} \
                 -p${LISTEN_ADDRESS}:5910:5910 \
                 -p${LISTEN_ADDRESS}:7000:7000 \
                 -p${LISTEN_ADDRESS}:7023:7023 \
+                -v Downloads:/home/firefox-user/Downloads \
                 --privileged \
                 --rm \
                 ${CONTAINER}
