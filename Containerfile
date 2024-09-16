@@ -17,10 +17,13 @@ ENV XDG_RUNTIME_DIR="/tmp" \
 ENV ARCH="x86_64" \
     USER="firefox-user" \
     #APK_ADD="libc-dev libffi-dev libxkbcommon-dev gcc geckodriver@testing git python3 python3-dev py3-pip py3-wheel firefox" \
-    APK_ADD="firefox xfce4-terminal" \
+    APK_ADD="firefox" \
+    #APK_ADD="flatpak" \
     APK_DEL=""
 
 USER root
+
+RUN apk update && apk --no-cache upgrade
 
 # Add fonts
 RUN apk add --no-cache msttcorefonts-installer fontconfig \
@@ -44,9 +47,9 @@ RUN addgroup -S $USER && adduser -S $USER -G $USER \
     # Change launcher modifier to alt key
     #&& sed -i -e 's/set $mod Mod4/set $mod Mod1/' /etc/sway/config \
 
-    # Change terminal to xfce4-terminal
-    # TERMINAL DOESN'T WORK THOUGH, AS THIS USER HAS ITS SHELL SET TO /usr/sbin/nologin
-    && sed -i -e 's/set $term alacritty/set $term xfce4-terminal/' /etc/sway/config \
+#    # Change terminal to xfce4-terminal
+#    # TERMINAL DOESN'T WORK THOUGH, AS THIS USER HAS ITS SHELL SET TO /usr/sbin/nologin
+#    && sed -i -e 's/set $term alacritty/set $term xfce4-terminal/' /etc/sway/config \
 
 #    # Add latest webdriver-util script for firefox automation
 #    && wget -P /usr/local/bin https://raw.githubusercontent.com/bbusse/webdriver-util/main/webdriver_util.py \
@@ -62,18 +65,20 @@ RUN addgroup -S $USER && adduser -S $USER -G $USER \
 #
 #    # Run controller.py
 #    && echo "exec controller.py --uri="iss-weather://" --stream-source=vnc-browser --debug=$DEBUG" >> /etc/sway/config.d/firefox
-
-    # run firefox at sway startup
-    && echo "exec firefox" >> /etc/sway/config.d/firefox
-
-#    # Add flathub repo
-#    RUN flatpak remote-add --user --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo \
 #
-#    # install librewolf flatpak
-#    && flatpak install -y io.gitlab.librewolf-community \
+#    # run firefox at sway startup
+    && echo "exec firefox" >> /etc/sway/config.d/firefox \
+
+#	# Add flathub repo
+#	RUN flatpak remote-add --user --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo \
 #
-#    # run librewolf at sway startup
-#    && echo "exec flatpak run io.gitlab.librewolf-community" >> /etc/sway/config.d/librewolf
+#	# install librewolf flatpak
+#	&& flatpak install -y io.gitlab.librewolf-community \
+#
+#	# run librewolf at sway startup
+#	&& echo "exec flatpak run io.gitlab.librewolf-community" >> /etc/sway/config.d/librewolf \
+
+    && true
 
 USER $USER
 
