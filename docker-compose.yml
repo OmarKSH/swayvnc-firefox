@@ -1,0 +1,16 @@
+services:
+  swayvnc-firefox:
+    image: swayvnc-firefox
+    build:
+      context: .
+      dockerfile: Containerfile
+#      labels:
+#        - "swayvnc-firefox"
+    container_name: swayvnc-firefox
+    privileged: true
+    ports:
+      - 127.0.0.1:5910:5910 # vnc port
+#      - 127.0.0.1:7023:7023 #swayvnc IPC socket
+    volumes:
+      - ~/Downloads:/home/firefox-user/Downloads
+networks: {}
